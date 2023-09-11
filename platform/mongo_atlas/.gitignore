@@ -1,0 +1,8 @@
+iatlaspl.code-workspace
+terraform.tfvars
+.terraform/
+*.tfstate*
+
+
+## Lock Files
+*.terraform.lock.hcl

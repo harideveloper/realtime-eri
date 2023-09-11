@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rtdp-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rtdp-consumer
+  template:
+    metadata:
+      labels:
+        app: rtdp-consumer
+    spec:
+      containers:
+        - name: rtdp-consumer
+          image:  hari5115/stream-producer:0.0.2
+          env:
+            - name: KAFKA_CLIENT_ID
+              value: "rtdp-producer" # <Enter your details>
+            - name: KAFKA_SERVERS
+              value: "pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092" # <Enter your details>
+            - name: KAFKA_SASL_MECHANISM
+              value: "plain" # <Enter your details>
+            - name: KAFKA_SASL_USERNAME
+              value: "DXFUVVKRYCZF556M" # <Enter your details>
+            - name: KAFKA_SASL_PASSWORD
+              value: "6Sp4e1O8UHa3fq5ETOd36JCc4MtBrYQUuaBz4I/RG+iWBAXiTS66/dr7ekYphtPA" # <Enter your details>
+            - name: KAFKA_TOPIC
+              value: "rtdp" # <Enter your details>
+            - name: KAFKA_CONSUMER_GRP
+              value: "rtdp-consumer-group" # <Enter your details>
+            - name: MONGODB_CONNECTION_STRING
+              value: "mongodb+srv://admin:admin@rtpd-dev.szg7cpg.mongodb.net/rtpd-dev" # <Enter your details>

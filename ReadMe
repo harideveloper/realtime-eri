@@ -1,0 +1,15 @@
+Real Time Data Streaming Blueprint (Confluent Kafka, Google Cloud GKE , Mongo Atlas)
+
+
+Platform Components
+
+- Confluent Basic Cluster
+- Mongo Atlas Basic Cluster
+- Google Kubernetes Engine
+
+
+Real time streaming components
+- Simple Node Js Producer
+- Simple Node Js Consumer
+- Docker Images of Consumers
+- consumer deployment in GKE
