@@ -10,10 +10,25 @@ resource "confluent_service_account" "admin-sa" {
   description  = var.admin-sa-desc
 }
 
+// dedicated cluster sa 
+resource "confluent_service_account" "dedicated-admin-sa" {
+  display_name = "dedicated-${var.admin-sa}"
+  description  = "dedicated-${var.admin-sa-desc}" 
+}
+
+
 resource "confluent_role_binding" "admin-sa-clusteradmin-rb" {
   principal   = "User:${confluent_service_account.admin-sa.id}"
   role_name   = "CloudClusterAdmin"
   crn_pattern = confluent_kafka_cluster.cluster.rbac_crn
+}
+
+// Dedicated Cluster IAM
+
+resource "confluent_role_binding" "dedicated-admin-sa-clusteradmin-rb" {
+  principal   = "User:${confluent_service_account.admin-sa.id}"
+  role_name   = "CloudClusterAdmin"
+  crn_pattern = confluent_kafka_cluster.dedicated.rbac_crn
 }
 
 // Admin Account API Keys (Account Admin)
@@ -26,6 +41,7 @@ resource "confluent_api_key" "admin-sa-api-key" {
     kind        = confluent_service_account.admin-sa.kind
   }
 
+  // basic cluster
   managed_resource {
     id          = confluent_kafka_cluster.cluster.id
     api_version = confluent_kafka_cluster.cluster.api_version
@@ -40,6 +56,39 @@ resource "confluent_api_key" "admin-sa-api-key" {
     confluent_role_binding.admin-sa-clusteradmin-rb
   ]
 }
+
+// Dedicated Cluster Keys
+
+// Admin Account API Keys (Account Admin)
+resource "confluent_api_key" "dedicated-admin-sa-api-key" {
+  display_name = "dedicated-${var.admin-api-key-name}"
+  description  = "dedicated-${var.admin-api-key-desc}"
+  
+  disable_wait_for_ready = true
+  owner {
+    id          = confluent_service_account.dedicated-admin-sa.id
+    api_version = confluent_service_account.dedicated-admin-sa.api_version
+    kind        = confluent_service_account.dedicated-admin-sa.kind
+  }
+
+  // dedicated cluster
+  managed_resource {
+    id          = confluent_kafka_cluster.dedicated.id
+    api_version = confluent_kafka_cluster.dedicated.api_version
+    kind        = confluent_kafka_cluster.dedicated.kind
+
+    environment {
+      id = confluent_environment.env.id
+    }
+  }
+
+  depends_on = [
+    confluent_role_binding.dedicated-admin-sa-clusteradmin-rb,
+    confluent_kafka_cluster.dedicated
+  ]
+}
+
+
 
 // CONSUMER
 

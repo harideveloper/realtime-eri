@@ -1,48 +1,57 @@
-##### GKE
+
+// Global
 variable "project_id" {
   type    = string
-  default = "GCP Project ID"
+  description = "Google Cloud Project ID"
 }
 
 variable "application" {
   type    = string
+  description = "Name of application or usecase, will be appended to the resource names"
 }
 
 variable "region" {
   type    = string
-  default = "europe-west2"
+  description = "Google Cloud Region for GKE Hosting"
 }
 
+// Network 
 variable "subnet_name" {
   type    = string
-  default = "subnet-01"
+  description = "Primary Subnet for GKE Hosting"
 }
 
 variable "subnet_ip" {
   type    = string
-  default = "10.0.0.0/20"
+  description = "ip address Range for Primary Subnet required for GKE Hosting"
 }
 
 variable "pod_cidr" {
   type    = string
-  default = "10.10.0.0/20"
+  description = "ip address Range required for Pods in GKE"
 }
 
 variable "svc1_cidr" {
   type    = string
-  default = "10.100.0.0/24"
+  description = "ip address Range required for Services in GKE"
 }
 
 variable "svc2_cidr" {
   type    = string
-  default = "10.100.1.0/24"
+  description = "Secondary ip address Range required for GKE"
+}
+
+// Confluent 
+variable "confluent_cidr" {
+  type    = string
+  description = "confluent ip address Range required for VPC Peering & Egress connection "
 }
 
 ## GKE Cluster Module 
 
 variable "gke_zone" {
   type    = string
-  default = "europe-west2-b"
+  description = "Google Cloud Zone for GKE Hosting"
 }
 
 variable "gke_channel" {
@@ -52,19 +61,32 @@ variable "gke_channel" {
 
 variable "gke_enabled" {
   type    = bool
+  description = "Boolean Flag to Skip GKE Creation for local testing"
   default = true
 }
 
 variable "namespace" {
   type    = string
-  default = "kube-bench"
+  description = "Kubernetes Namespace for the Project"
 }
 
-variable "kbench_path" {
+variable "krd_path" {
   type    = string
-  default = "k8/"
+  description = "Kubernetes Manifests Paths"
 }
 
+
+// Confluent
+
+variable "confluent_project_id" {
+  type    = string
+  description = "Confluent Google Cloud Project ID"
+}
+
+variable "confluent_vpc" {
+  type    = string
+  description = "Confluent VPC"
+}
 
 
 

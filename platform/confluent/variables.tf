@@ -133,5 +133,31 @@ variable "schema_registry_package_id" {
 }
 
 
+// Consumer 
+variable "consumer_project_id" {
+  type    = string
+  description = "consumer project id"
+}
+
+variable "consumer_vpc" {
+  type    = string
+  description = "consumer vpc network name"
+}
+
+variable "confluent_cidr" {
+  type    = string
+  description = "confluent ip address Range required for VPC Peering & Egress connection "
+}
+
+variable "import_custom_routes" {
+  description = "The Import Custom Routes option enables connectivity to a Confluent Cloud cluster in Google Cloud from customer premise or other clouds, such as AWS and Azure, through a customer VPC that is peered with Confluent Cloud in the same region."
+  type        = bool
+  default     = false
+}
+
+
+
+
+
 
 

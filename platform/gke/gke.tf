@@ -50,22 +50,3 @@ resource "local_file" "gke_kubeconfig" {
   content  = module.gke_auth[0].kubeconfig_raw
   filename = "${var.application}-kubeconfig.secret"
 }
-
-# resource "null_resource" "execkubebench" {
-#   provisioner "local-exec" {
-#     interpreter = ["bash", "-exc"]
-#     command     = "${path.module}/scripts/exekubebench.sh"
-#     environment = {
-#       CLUSTER    = var.application
-#       LOCATION   = var.gke_zone
-#       PROJECT    = var.project_id
-#       KUBECONFIG = "${var.application}-kubeconfig.secret"
-#       NAMESPACE  = var.namespace
-#     }
-#   }
-#   triggers = {
-#     build_number = "${timestamp()}"
-#     script_sha1  = sha1(file("${path.module}/scripts/exekubebench.sh")),
-#   }
-# }
-
