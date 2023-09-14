@@ -17,7 +17,6 @@ variable "confluent_cloud_api_secret" {
 variable "app" {
   description = "Streaming application name"
   type        = string
-  default     = "rtdp"
 }
 
 
@@ -25,13 +24,11 @@ variable "app" {
 variable "environment" {
   description = "Confluent Cloud Environment"
   type        = string
-  default     = "Dev"
 }
 
 variable "cluster_name" {
   description = "Confluent Kafka Cluster Name"
   type        = string
-  default     = "Dev"
 }
 
 variable "cluster_availability_mode" {

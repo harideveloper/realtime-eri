@@ -14,8 +14,8 @@ async function streamMsgs() {
   try {
     const topic = config.topic; // Replace with your Kafka topic name
 
-    // Stream 10 messages
-    for (let i = 0; i < 10; i++) {
+    // Stream messages
+    for (let i = 0; i < 100 ; i++) {
       const message = {
         key: ` REALTIME KEY-${i}`,
         value: `REALTIME MESSAGE : ${i}`,

@@ -6,7 +6,6 @@ variable "project_id" {
 
 variable "application" {
   type    = string
-  default = "cis"
 }
 
 variable "region" {

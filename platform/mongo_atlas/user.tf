@@ -7,7 +7,7 @@ resource "mongodbatlas_database_user" "user" {
   auth_database_name = "admin"
 
   roles {
-    role_name     = "readWrite" 
+    role_name     = "readWriteAnyDatabase" 
     database_name = var.database_name
 
     // readWriteAnyDatabase@admin

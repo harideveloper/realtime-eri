@@ -23,12 +23,12 @@ spec:
             - name: KAFKA_SASL_MECHANISM
               value: "plain" # <Enter your details>
             - name: KAFKA_SASL_USERNAME
-              value: "DXFUVVKRYCZF556M" # <Enter your details>
+              value: "MIE7CCB6ABTRIIVV" # <Enter your details>
             - name: KAFKA_SASL_PASSWORD
-              value: "6Sp4e1O8UHa3fq5ETOd36JCc4MtBrYQUuaBz4I/RG+iWBAXiTS66/dr7ekYphtPA" # <Enter your details>
+              value: "ZHmRNieX8uciaAvcMSwnyNz4loV3o6OEg1iuJ+bpoOSAr2GwoTw8IQKnncfXA49D" # <Enter your details>
             - name: KAFKA_TOPIC
               value: "rtdp" # <Enter your details>
             - name: KAFKA_CONSUMER_GRP
               value: "rtdp-consumer-group" # <Enter your details>
             - name: MONGODB_CONNECTION_STRING
-              value: "mongodb+srv://admin:admin@rtpd-dev.szg7cpg.mongodb.net/rtpd-dev" # <Enter your details>
+              value: "mongodb+srv://admin:admin@rtpd-dev.jj6xnrx.mongodb.net/rtpd-dev" # <Enter your details>
