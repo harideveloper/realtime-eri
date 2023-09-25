@@ -107,18 +107,18 @@ module "vpc" {
 
 // Network Peering
 
-resource "google_compute_network_peering" "gke_to_confluent" {
-  name                   = "${var.application}-gke-to-confluent-peering"
-  network                = "https://www.googleapis.com/compute/v1/projects/${var.project_id}/global/networks/${module.vpc.network_name}"
-  peer_network           = "https://www.googleapis.com/compute/v1/projects/${var.confluent_project_id}/global/networks/${var.confluent_vpc}"
+# resource "google_compute_network_peering" "gke_to_confluent" {
+#   name                   = "${var.application}-gke-to-confluent-peering"
+#   network                = "https://www.googleapis.com/compute/v1/projects/${var.project_id}/global/networks/${module.vpc.network_name}"
+#   peer_network           = "https://www.googleapis.com/compute/v1/projects/${var.confluent_project_id}/global/networks/${var.confluent_vpc}"
 
-  // Routes
-  export_custom_routes   = false
-  import_custom_routes   = false
+#   // Routes
+#   export_custom_routes   = false
+#   import_custom_routes   = false
 
-  depends_on   = [module.vpc]
+#   depends_on   = [module.vpc]
   
-}
+# }
 
 # resource "google_compute_network_peering" "confluent_to_gke" {
 #   name                   = "${var.application}-confluent_to_gke_peering"
