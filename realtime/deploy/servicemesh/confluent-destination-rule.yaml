@@ -1,0 +1,9 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kafka-destinationrule
+spec:
+  host: pkc-l6wr6.europe-west2.gcp.confluent.cloud
+  trafficPolicy:
+    tls:
+      mode: DISABLE

@@ -1,0 +1,13 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kafka-consumer-virtualservice
+spec:
+  hosts:
+    - rtdp-consumer 
+  http:
+    - route:
+        - destination:
+            host: pkc-l6wr6.europe-west2.gcp.confluent.cloud
+            port:
+              number: 9092

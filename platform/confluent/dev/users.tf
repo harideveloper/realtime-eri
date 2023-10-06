@@ -7,12 +7,12 @@
 #   ]
 # }
 
-resource "confluent_invitation" "hari-gcp" {
-  //for_each  = toset(var.members)
-  //email     = each.value
-  email       = "hari.gcp.study@gmail.com"
-  auth_type   = "AUTH_TYPE_LOCAL"
-}
+# resource "confluent_invitation" "hari-gcp" {
+#   //for_each  = toset(var.members)
+#   //email     = each.value
+#   email       = "hari.gcp.study@gmail.com"
+#   auth_type   = "AUTH_TYPE_LOCAL"
+# }
 
 # data "confluent_users" "users" {}
 

@@ -1,9 +1,10 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rtdp-consumer
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: rtdp-consumer
@@ -14,21 +15,141 @@ spec:
     spec:
       containers:
         - name: rtdp-consumer
-          image:  hari5115/stream-producer:0.0.2
+          image:  hari5115/stream-producer:0.0.3
           env:
             - name: KAFKA_CLIENT_ID
-              value: "rtdp-producer" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_CLIENT_ID
             - name: KAFKA_SERVERS
-              value: "pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_SERVERS
             - name: KAFKA_SASL_MECHANISM
-              value: "plain" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_SASL_MECHANISM
             - name: KAFKA_SASL_USERNAME
-              value: "MIE7CCB6ABTRIIVV" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_SASL_USERNAME
             - name: KAFKA_SASL_PASSWORD
-              value: "ZHmRNieX8uciaAvcMSwnyNz4loV3o6OEg1iuJ+bpoOSAr2GwoTw8IQKnncfXA49D" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_SASL_PASSWORD
             - name: KAFKA_TOPIC
-              value: "rtdp" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_TOPIC
+            - name: KAFKA_PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_PARTITION
             - name: KAFKA_CONSUMER_GRP
-              value: "rtdp-consumer-group" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: KAFKA_CONSUMER_GRP
             - name: MONGODB_CONNECTION_STRING
-              value: "mongodb+srv://admin:admin@rtpd-dev.jj6xnrx.mongodb.net/rtpd-dev" # <Enter your details>
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: MONGODB_CONNECTION_STRING
+            - name: SKIP_SAVE_MSG
+              valueFrom:
+                configMapKeyRef:
+                  name: rtdp-cm
+                  key: SKIP_SAVE_MSG
+
+
+#--- 
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: rtdp-consumer1
+# spec:
+#   replicas: 3
+#   selector:
+#     matchLabels:
+#       app: rtdp-consumer1
+#   template:
+#     metadata:
+#       labels:
+#         app: rtdp-consumer1
+#     spec:
+#       containers:
+#         - name: rtdp-consumer1
+#           image:  hari5115/stream-producer:0.0.3
+#           env:
+#             - name: KAFKA_CLIENT_ID
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_CLIENT_ID
+#             - name: KAFKA_SERVERS
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_SERVERS
+#             - name: KAFKA_SASL_MECHANISM
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_SASL_MECHANISM
+#             - name: KAFKA_SASL_USERNAME
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_SASL_USERNAME
+#             - name: KAFKA_SASL_PASSWORD
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_SASL_PASSWORD
+#             - name: KAFKA_TOPIC
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_TOPIC
+#             - name: KAFKA_PARTITION
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_PARTITION2
+#             - name: KAFKA_CONSUMER_GRP
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: KAFKA_CONSUMER_GRP
+#             - name: MONGODB_CONNECTION_STRING
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: MONGODB_CONNECTION_STRING
+#             - name: SKIP_SAVE_MSG
+#               valueFrom:
+#                 configMapKeyRef:
+#                   name: rtdp-cm
+#                   key: SKIP_SAVE_MSG
+
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: consumer-service
+# spec:
+#   type: LoadBalancer
+#   selector:
+#     app: rtdp-consumer
+#   ports:
+#   - name: http
+#     port: 80
+#     targetPort: 8080 

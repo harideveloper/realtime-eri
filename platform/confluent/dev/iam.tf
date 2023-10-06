@@ -21,6 +21,9 @@ resource "confluent_role_binding" "admin-sa-clusteradmin-rb" {
 resource "confluent_api_key" "admin-sa-api-key" {
   display_name = "${var.app}-${var.env}-${var.admin-api-key-name}"
   description  = "${var.app}-${var.env}-${var.admin-api-key-desc}"
+
+  //disable_wait_for_ready = true
+
   owner {
     id          = confluent_service_account.admin-sa.id
     api_version = confluent_service_account.admin-sa.api_version

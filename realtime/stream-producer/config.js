@@ -13,9 +13,13 @@ module.exports = {
     },
   },
   topic : process.env.KAFKA_TOPIC,
+  partition : process.env.KAFKA_PARTITION,
+  partition2 : process.env.KAFKA_PARTITION2,
+  partition3 : process.env.KAFKA_PARTITION3,
   consumerGrp: process.env.KAFKA_CONSUMER_GRP,
 
   mongodb: {
     connectionString: process.env.MONGODB_CONNECTION_STRING,
+    skipSaveMsg: process.env.SKIP_SAVE_MSG,
   },
 };

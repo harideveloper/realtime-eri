@@ -35,6 +35,7 @@ terraform.rc
 
 ## Lock Files
 *.terraform.lock.hcl
+*tfstate*
 
 istio-*
 

@@ -50,3 +50,13 @@ resource "local_file" "gke_kubeconfig" {
   content  = module.gke_auth[0].kubeconfig_raw
   filename = "${var.application}-kubeconfig.secret"
 }
+
+
+
+## gke container data
+data "google_container_cluster" "gke" {
+  name     = var.application
+  location = var.gke_zone
+
+  depends_on = [module.gke]
+}

@@ -4,6 +4,7 @@ const config = require('./config');
 
 const confluent = new Kafka(config.kafka);
 
+
 // Connect to MongoDB Atlas
 mongoose.connect(config.mongodb.connectionString, {
   useNewUrlParser: true,
@@ -42,12 +43,15 @@ recieveMsgs = async () => {
   try {
     const consumer = confluent.consumer({ groupId: config.consumerGrp });
     await consumer.connect();
-    await consumer.subscribe({ topic: config.topic, fromBeginning: true });
+    await consumer.subscribe({ topic: config.topic, partitions: [config.partition] , fromBeginning: true });
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
         console.log(`msg recieved : ${message.value.toString()} from topic ${topic}, partition ${partition}`);
         // Save to Mongo DB
-        saveDB(topic, partition, message);
+        if(!config.mongodb.skipSaveMsg) {
+          console.log("Info: Messages NOT stored in the Atlas")
+          saveDB(topic, partition, message);
+        }   
       },
     });
   } catch (error) {
