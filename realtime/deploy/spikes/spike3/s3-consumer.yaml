@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3-rtdp-consumer
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: s3-rtdp-consumer
+  template:
+    metadata:
+      labels:
+        app: s3-rtdp-consumer
+    spec:
+      containers:
+        - name: s3-rtdp-consumer
+          image:  hari5115/stream-producer:0.0.2
+          env:
+            - name: KAFKA_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_CLIENT_ID
+            - name: KAFKA_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SERVERS
+            - name: KAFKA_SASL_MECHANISM
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_MECHANISM
+            - name: KAFKA_SASL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_USERNAME
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_PASSWORD
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: s3-rtdp-cm
+                  key: KAFKA_TOPIC
+            # - name: KAFKA_PARTITION
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: s3-rtdp-cm
+            #       key: KAFKA_PARTITION
+            - name: KAFKA_CONSUMER_GRP
+              valueFrom:
+                configMapKeyRef:
+                  name: s3-rtdp-cm
+                  key: KAFKA_CONSUMER_GRP
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: MONGODB_CONNECTION_STRING
+            - name: SKIP_SAVE_MSG
+              valueFrom:
+                configMapKeyRef:
+                  name: s3-rtdp-cm
+                  key: SKIP_SAVE_MSG
+
+

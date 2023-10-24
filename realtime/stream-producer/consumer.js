@@ -47,6 +47,9 @@ recieveMsgs = async () => {
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
         console.log(`msg recieved : ${message.value.toString()} from topic ${topic}, partition ${partition}`);
+        
+        // consumer lag interval for test purpose
+        await sleep(config.lagInterval);
         // Save to Mongo DB
         if(!config.mongodb.skipSaveMsg) {
           console.log("Info: Messages NOT stored in the Atlas")
@@ -58,6 +61,13 @@ recieveMsgs = async () => {
     console.error('Error: Unable to connect to Kafka Cluster ::::: ', error);
   }
 }
+
+async function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 
 
 recieveMsgs().catch((error) => {

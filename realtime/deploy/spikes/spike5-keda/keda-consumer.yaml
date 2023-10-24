@@ -1,0 +1,75 @@
+# Instance 1 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keda-rtdp-consumer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keda-rtdp-consumer
+  template:
+    metadata:
+      labels:
+        app: keda-rtdp-consumer
+    spec:
+      containers:
+        - name: keda-rtdp-consumer
+          image:  hari5115/stream-producer:0.0.4
+          env:
+            - name: KAFKA_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_CLIENT_ID
+            - name: KAFKA_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SERVERS
+            - name: KAFKA_SASL_MECHANISM
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_MECHANISM
+            - name: KAFKA_SASL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_USERNAME
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_PASSWORD
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: keda-rtdp-cm
+                  key: KAFKA_TOPIC
+            - name: KAFKA_PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  name: keda-rtdp-cm
+                  key: KAFKA_PARTITION
+            - name: KAFKA_CONSUMER_GRP
+              valueFrom:
+                configMapKeyRef:
+                  name: keda-rtdp-cm
+                  key: KAFKA_CONSUMER_GRP
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: MONGODB_CONNECTION_STRING
+            - name: SKIP_SAVE_MSG
+              valueFrom:
+                configMapKeyRef:
+                  name: keda-rtdp-cm
+                  key: SKIP_SAVE_MSG
+            - name: LAG_INTERVAL
+              valueFrom:
+                configMapKeyRef:
+                  name: keda-rtdp-cm
+                  key: LAG_INTERVAL

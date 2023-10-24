@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: connection-cm
+data:
+    #  Confluent Configs
+    KAFKA_CLIENT_ID: "rtdp-producer"
+    KAFKA_SERVERS: "pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092"
+    KAFKA_PORT: "9092"
+    KAFKA_SASL_MECHANISM: "plain"
+    KAFKA_SASL_USERNAME: "ZOYPXT3CJTZMV4VF"
+    KAFKA_SASL_PASSWORD : "XKhm/EP4hRG+Egt2aG+CIj1bFYfS6ie9PFxng6n6v3I5bQ8R52D2DL2nfG0Og6lm"
+    MONGODB_CONNECTION_STRING: "mongodb+srv://admin:admin@rtpd-dev.bffotae.mongodb.net/rtpd-dev"

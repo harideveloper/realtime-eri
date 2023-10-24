@@ -55,6 +55,7 @@ resource "local_file" "gke_kubeconfig" {
 
 ## gke container data
 data "google_container_cluster" "gke" {
+  count  = var.gke_enabled ? 1 : 0
   name     = var.application
   location = var.gke_zone
 

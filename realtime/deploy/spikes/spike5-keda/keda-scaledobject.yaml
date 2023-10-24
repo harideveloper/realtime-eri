@@ -1,0 +1,28 @@
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: kafka-scaledobject
+  namespace: default
+  labels:
+    deploymentName: keda-rtdp-consumer-deployment
+spec:
+  scaleTargetRef:
+    name: keda-rtdp-consumer-deployment
+  pollingInterval: 5
+  minReplicaCount: 1
+  maxReplicaCount: 10  # Max can go upto num of partitions you have in the topic
+  triggers:
+    - type: kafka
+      metadata:
+        consumerGroup: keda-rtdp-consumer-group
+        bootstrapServers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+        topic: "keda-rtdp-dev-spike" 
+        lagThreshold: "10"
+        offsetRestPolicy: latest
+        sasl: plaintext
+        tls: disable
+        # username: P5JKLIIC3H47AN7E
+        # password: mEMURM0XLWPeolc09cfUqd4rUZQrjMTzR22FpIav5lEFCwsVAzY65lKW7idPyghQ
+      authenticationRef:
+        name: keda-kafka-credentials

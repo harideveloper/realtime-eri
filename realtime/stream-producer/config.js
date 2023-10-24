@@ -18,8 +18,13 @@ module.exports = {
   partition3 : process.env.KAFKA_PARTITION3,
   consumerGrp: process.env.KAFKA_CONSUMER_GRP,
 
+  isLag : process.env.ISLAG,
+  lagInterval: process.env.LAG_INTERVAL, 
+
+
   mongodb: {
     connectionString: process.env.MONGODB_CONNECTION_STRING,
     skipSaveMsg: process.env.SKIP_SAVE_MSG,
   },
+
 };

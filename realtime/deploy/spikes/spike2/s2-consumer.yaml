@@ -1,0 +1,212 @@
+# Instance 1 
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s2-rtdp-consumer-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s2-rtdp-consumer-1
+  template:
+    metadata:
+      labels:
+        app: s2-rtdp-consumer-1
+    spec:
+      containers:
+        - name: s2-rtdp-consumer-1
+          image:  hari5115/stream-producer:0.0.3
+          env:
+            - name: KAFKA_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_CLIENT_ID
+            - name: KAFKA_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SERVERS
+            - name: KAFKA_SASL_MECHANISM
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_MECHANISM
+            - name: KAFKA_SASL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_USERNAME
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_PASSWORD
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_TOPIC
+            - name: KAFKA_PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_PARTITION0
+            - name: KAFKA_CONSUMER_GRP
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_CONSUMER_GRP
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: MONGODB_CONNECTION_STRING
+            - name: SKIP_SAVE_MSG
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: SKIP_SAVE_MSG
+# Instance 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s2-rtdp-consumer-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s2-rtdp-consumer-2
+  template:
+    metadata:
+      labels:
+        app: s2-rtdp-consumer-2
+    spec:
+      containers:
+        - name: s2-rtdp-consumer-2
+          image:  hari5115/stream-producer:0.0.3
+          env:
+            - name: KAFKA_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_CLIENT_ID
+            - name: KAFKA_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SERVERS
+            - name: KAFKA_SASL_MECHANISM
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_MECHANISM
+            - name: KAFKA_SASL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_USERNAME
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_PASSWORD
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_TOPIC
+            - name: KAFKA_PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_PARTITION1
+            - name: KAFKA_CONSUMER_GRP
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_CONSUMER_GRP
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: MONGODB_CONNECTION_STRING
+            - name: SKIP_SAVE_MSG
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: SKIP_SAVE_MSG
+
+
+# Instance 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s2-rtdp-consumer-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s2-rtdp-consumer-3
+  template:
+    metadata:
+      labels:
+        app: s2-rtdp-consumer-3
+    spec:
+      containers:
+        - name: s2-rtdp-consumer-3
+          image:  hari5115/stream-producer:0.0.3
+          env:
+            - name: KAFKA_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_CLIENT_ID
+            - name: KAFKA_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SERVERS
+            - name: KAFKA_SASL_MECHANISM
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_MECHANISM
+            - name: KAFKA_SASL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_USERNAME
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: KAFKA_SASL_PASSWORD
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_TOPIC
+            - name: KAFKA_PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_PARTITION2
+            - name: KAFKA_CONSUMER_GRP
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: KAFKA_CONSUMER_GRP
+            - name: MONGODB_CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-cm
+                  key: MONGODB_CONNECTION_STRING
+            - name: SKIP_SAVE_MSG
+              valueFrom:
+                configMapKeyRef:
+                  name: s2-rtdp-cm
+                  key: SKIP_SAVE_MSG

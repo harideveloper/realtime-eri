@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: s1-rtdp-cm
+data:
+    #  Confluent Configs
+    KAFKA_TOPIC: "rtdp-dev-spike1" 
+    KAFKA_CONSUMER_GRP: "rtdp-consumer-group-spike1"
+    SKIP_SAVE_MSG: "true"
+    KAFKA_PARTITION0: "0"
+    KAFKA_PARTITION1: "1"
+    KAFKA_PARTITION2: "2"

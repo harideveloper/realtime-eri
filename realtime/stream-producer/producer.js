@@ -6,6 +6,8 @@ const config = require('./config');
 //const kafka = new Kafka(config.kafka);
 const confluent = new Kafka(config.kafka);
 
+const msgCount = 100;
+
 async function streamMsgs() {
   const producer = confluent.producer();
 
@@ -15,10 +17,10 @@ async function streamMsgs() {
     const topic = config.topic; // Replace with your Kafka topic name
 
     // Stream messages
-    for (let i = 0; i < 100 ; i++) {
+    for (let i = 0; i < msgCount ; i++) {
       const message = {
-        key: ` REALTIME KEY-${i}`,
-        value: `REALTIME MESSAGE : ${i}`,
+        key: `Dark Knight -${i}`,
+        value: `Dark Knight -:${i}`,
       };
 
     await producer.send({
